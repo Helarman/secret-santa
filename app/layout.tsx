@@ -10,7 +10,7 @@ import RentModal from '@/app/components/modals/RentModal';
 import Footer from '@/app/components/footer/Footer';
 import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar2';
 
 export const metadata = {
   title: 'Hidden santa',
@@ -39,7 +39,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div className='bg-gray-100 dark:bg-[#17142A]'>
+          <div >
             <ToasterProvider />
             <LoginModal />
             <RegisterModal />

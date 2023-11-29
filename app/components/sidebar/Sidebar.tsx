@@ -9,6 +9,7 @@ import { SafeUser } from "@/app/types";
 import { AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
 
 import MenuItem from "./MenuItem";
+import { ThemeButton } from "../ThemeButton";
 
 
 
@@ -179,7 +180,7 @@ const Sidebar = ({
                                     
                                 </ul>
                             </div>
-                            
+                            <ThemeButton/>
                         </div>
                     </div>
                 </div>
