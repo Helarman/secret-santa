@@ -1,4 +1,4 @@
-import { Roboto } from 'next/font/google'
+import { Open_Sans } from 'next/font/google'
 import ToasterProvider from '@/app/providers/ToasterProvider';
 import { ThemeProvider } from "@/app/components/theme-provider"
 
@@ -10,14 +10,15 @@ import RentModal from '@/app/components/modals/RentModal';
 import Footer from '@/app/components/footer/Footer';
 import LoginModal from './components/modals/LoginModal';
 import RegisterModal from './components/modals/RegisterModal';
-import Navbar from './components/Navbar2';
+import Navbar from './components/Navbar';
+import UnauthorizedSate from './components/UnauthorizedState';
 
 export const metadata = {
   title: 'Hidden santa',
   description: 'Santa app',
 }
 
-const font = Roboto({
+const font = Open_Sans({
   subsets: ['latin'],
   weight: '400'
 });
@@ -29,6 +30,19 @@ export default async function RootLayout({
 }) {
   const currentUser = await getCurrentUser();
 
+  if (!currentUser) {
+    return (
+
+      <html lang="en" suppressHydrationWarning>
+        <body className={font.className}>
+          <ToasterProvider />
+          <LoginModal />
+          <RegisterModal />
+          <UnauthorizedSate />
+        </body>
+      </html>
+    )
+  }
 
   return (
     <html lang="en" suppressHydrationWarning>
@@ -39,7 +53,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <div >
+          <div className='bg-gray-100 dark:bg-[#181F39] min-h-screen'>
             <ToasterProvider />
             <LoginModal />
             <RegisterModal />
@@ -49,11 +63,10 @@ export default async function RootLayout({
             <div className="w-full relative flex ">
               <Sidebar />
               <div className="relative md:ml-80 w-full">
-                <Navbar  currentUser={currentUser}/>
+                <Navbar currentUser={currentUser} />
                 <div
                   className="
-                  px-4
-                  md:px-6
+                  pt-28
                   mx-auto 
                   w-full 
                   
@@ -76,15 +89,11 @@ export default async function RootLayout({
                         w-full
                         
                         text-gray-700 
-                        
-                        min-h-screen
+                        dark:text-gray-100
                       "
                       >
                         <div className='mb-auto'>
                           {children}
-                        </div>
-                        <div >
-                          <Footer />
                         </div>
 
                       </div>

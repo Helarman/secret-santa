@@ -5,13 +5,14 @@ import { useRouter } from "next/navigation";
 import { useCallback, useMemo } from "react";
 import { format } from 'date-fns';
 
-import { 
-  SafeRoom, 
-  SafeUser 
+import {
+  SafeRoom,
+  SafeUser
 } from "@/app/types";
 
 import Button from "../Button";
 import ClientOnly from "../ClientOnly";
+import DeleteButton from "../DeleteButton";
 
 interface RoomCardProps {
   data: SafeRoom;
@@ -35,24 +36,25 @@ const RoomCard: React.FC<RoomCardProps> = ({
 
   const handleCancel = useCallback(
     (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
+      e.stopPropagation();
 
-    if (disabled) {
-      return;
-    }
+      if (disabled) {
+        return;
+      }
 
-    onAction?.(actionId)
-  }, [disabled, onAction, actionId]);
+      onAction?.(actionId)
+    }, [disabled, onAction, actionId]);
 
   return (
-    <div 
-      onClick={() => router.push(`/rooms/${data.id}`)} 
+    <div
+
       className="col-span-1 cursor-pointer group"
     >
       <div className="flex flex-col gap-2 w-full">
-        <div 
+        <div
+          
           className="
-            aspect-square 
+            aspect-[2/3]
             w-full 
             relative 
             overflow-hidden 
@@ -61,21 +63,30 @@ const RoomCard: React.FC<RoomCardProps> = ({
         >
           <Image
             fill
+            onClick={() => router.push(`/rooms/${data.id}`)}
             className="
-              object-cover 
-              h-full 
               w-full 
               group-hover:scale-110 
               transition
             "
-            src={data.imageSrc}
+            src={`/images/cards/card-${data.imgNum}.png`}
             alt="Room"
           />
-         
+          <div
+            className="
+          absolute 
+          top-3 
+          right-3"
+          >
+            <DeleteButton
+              listingId={data.id}
+              currentUser={currentUser}
+            />
+          </div>
         </div>
       </div>
     </div>
-   );
+  );
 }
- 
+
 export default RoomCard;

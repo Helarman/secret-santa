@@ -9,8 +9,9 @@ import useLoginModal from "@/app/hooks/useLoginModal";
 import { SafeRoom, SafeUser } from "@/app/types";
 
 import Container from "@/app/components/Container";
-import RoomHead from "@/app/components/rooms/RoomHead";
+import Image from "next/image";
 import RoomInfo from "@/app/components/rooms/RoomInfo";
+import RoomResult from "@/app/components/rooms/RoomResult";
 
 interface RoomClientProps {
   room: SafeRoom & {
@@ -28,51 +29,55 @@ const RoomClient: React.FC<RoomClientProps> = ({
 
   const [isLoading, setIsLoading] = useState(false);
 
+  const [isResult, changeState] = useState(false);
 
+  const toggleState = () => {
+    changeState(!isResult)
+  }
 
-  return ( 
+  return (
     <Container>
-      <div 
-        className="
-          max-w-screen-lg 
-          mx-auto
+      <div className="flex flex-col lg:flex-row">
+        <div className="
+          aspect-[2/3]
+          lg:w-3/12
+          w-full
+          overflow-hidden 
+          relative
         "
-      >
-        <div className="flex flex-col gap-6">
-          <RoomHead
-            title={room.title}
-            imageSrc={room.imageSrc}
-            id={room.id}
-            currentUser={currentUser}
+        >
+          <Image
+            loading='lazy'
+            src={`/images/cards/card-${room.imgNum}.png`}
+            fill
+            className="object-cover w-full "
+            alt="Image"
           />
-          <div 
-            className="
-              grid 
-              grid-cols-1 
-              md:grid-cols-7 
-              md:gap-10 
-              mt-6
+        </div>
+        <div
+          className="
+            flex lg:w-9/12 w-full
             "
-          >
+        >
+          {isResult ?
+            <RoomResult
+              user={room.user}
+              description={room.description}
+              title={room.title}
+            />
+            :
             <RoomInfo
               user={room.user}
               description={room.description}
+              title={room.title}
             />
-            <div 
-              className="
-                order-first 
-                mb-10 
-                md:order-last 
-                md:col-span-3
-              "
-            >
-             
-            </div>
-          </div>
+          }
         </div>
+
       </div>
+      <button onClick={toggleState} className="p-3 border-2">Change state</button>
     </Container>
-   );
+  );
 }
- 
+
 export default RoomClient;

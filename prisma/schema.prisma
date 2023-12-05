@@ -47,7 +47,7 @@ model Room {
   id             String @id @default(auto()) @map("_id") @db.ObjectId
   title String
   description String
-  imageSrc String
+  imgNum Int
   createdAt DateTime @default(now())
   userId String @db.ObjectId
 

@@ -16,7 +16,7 @@ export async function POST(
   const { 
     title,
     description,
-    imageSrc
+    imgNum
    } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -29,7 +29,7 @@ export async function POST(
     data: {
       title,
       description,
-      imageSrc,
+      imgNum,
       userId: currentUser.id
     }
   });

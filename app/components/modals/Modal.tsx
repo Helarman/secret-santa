@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from "react";
-import { IoMdClose } from "react-icons/io";
+import { FaXmark } from "react-icons/fa6";
 
 import Button from "../Button";
 
@@ -18,14 +18,14 @@ interface ModalProps {
   secondaryActionLabel?: string;
 }
 
-const Modal: React.FC<ModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  onSubmit, 
-  title, 
-  body, 
-  actionLabel, 
-  footer, 
+const Modal: React.FC<ModalProps> = ({
+  isOpen,
+  onClose,
+  onSubmit,
+  title,
+  body,
+  actionLabel,
+  footer,
   disabled,
   secondaryAction,
   secondaryActionLabel
@@ -40,7 +40,7 @@ const Modal: React.FC<ModalProps> = ({
     if (disabled) {
       return;
     }
-  
+
     setShowModal(false);
     setTimeout(() => {
       onClose();
@@ -69,6 +69,8 @@ const Modal: React.FC<ModalProps> = ({
 
   return (
     <>
+
+
       <div
         className="
           justify-center 
@@ -84,6 +86,21 @@ const Modal: React.FC<ModalProps> = ({
           bg-neutral-800/70
         "
       >
+
+        <button
+          onClick={handleClose}
+          className="
+            text-white 
+            hover:opacity-75 
+            absolute 
+            right-5 
+            top-5 
+            h-10 
+            w-10
+            "
+        >
+          <FaXmark className="w-full h-full" />
+        </button>
         <div className="
           relative 
           w-full
@@ -97,6 +114,9 @@ const Modal: React.FC<ModalProps> = ({
           md:h-auto
           "
         >
+
+
+
           {/*content*/}
           <div className={`
             translate
@@ -111,15 +131,18 @@ const Modal: React.FC<ModalProps> = ({
               lg:h-auto
               md:h-auto
               border-0 
-              rounded-lg 
               shadow-lg 
               relative 
               flex 
               flex-col 
               w-full 
-              bg-white 
+              
               outline-none 
               focus:outline-none
+              bg-white
+              text-gray-700 
+              dark:bg-[#1E2746] 
+              dark:text-white
             "
             >
               {/*header*/}
@@ -140,11 +163,11 @@ const Modal: React.FC<ModalProps> = ({
                     hover:opacity-70
                     transition
                     absolute
-                    left-9
+                    right-3.5
                   "
                   onClick={handleClose}
                 >
-                  <IoMdClose size={18} />
+                  <FaXmark size={18} />
                 </button>
                 <div className="text-lg font-semibold">
                   {title}
@@ -156,26 +179,29 @@ const Modal: React.FC<ModalProps> = ({
               </div>
               {/*footer*/}
               <div className="flex flex-col gap-2 p-6">
-                <div 
+                <div
                   className="
                     flex 
                     flex-row 
                     items-center 
                     gap-4 
                     w-full
+                    text-white
                   "
                 >
                   {secondaryAction && secondaryActionLabel && (
-                    <Button 
-                      disabled={disabled} 
-                      label={secondaryActionLabel} 
+                    <Button
+                      type="primary"
+                      disabled={disabled}
+                      label={secondaryActionLabel}
                       onClick={handleSecondaryAction}
                       outline
-                    />  
+                    />
                   )}
-                  <Button 
-                    disabled={disabled} 
-                    label={actionLabel} 
+                  <Button
+                    type="primary"
+                    disabled={disabled}
+                    label={actionLabel}
                     onClick={handleSubmit}
                   />
                 </div>

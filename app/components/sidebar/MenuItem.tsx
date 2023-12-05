@@ -1,15 +1,19 @@
 'use client';
 
 import { useRouter } from "next/navigation";
+import { IconType } from "react-icons";
 
 interface MenuItemProps {
   link?: string;
   label: string;
+  icon?: IconType;
+
 }
 
 const MenuItem: React.FC<MenuItemProps> = ({
   link,
   label,
+  icon: Icon,
 }) => {
 
   const router = useRouter();
@@ -17,9 +21,19 @@ const MenuItem: React.FC<MenuItemProps> = ({
 
   return (
     <li>
-      <button onClick={() => router.push(link as string)} className="text-md py-3  block dark:text-white text-gray-700 hover:opacity-75">
-        <span>{label}</span>
-      </button>
+
+      <a href={link} className="pl-10 text-lg py-3 my-3 flex flex-row dark:text-white text-gray-700 hover:border-indigo-500 hover:border-l-8">
+        {Icon && (
+
+          <Icon
+            size={24}
+            className="mr-4"
+          />
+        )}
+        {label}
+
+      </a>
+
     </li>
   );
 }

@@ -64,7 +64,7 @@ const RegisterModal= () => {
   const bodyContent = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to Airbnb"
+        title="Welcome"
         subtitle="Create an account!"
       />
       <Input
@@ -99,17 +99,13 @@ const RegisterModal= () => {
     <div className="flex flex-col gap-4 mt-3">
       <hr />
       <Button 
+        type='secondary'
         outline 
         label="Continue with Google"
         icon={FcGoogle}
         onClick={() => signIn('google')} 
       />
-      <Button 
-        outline 
-        label="Continue with Github"
-        icon={AiFillGithub}
-        onClick={() => signIn('github')}
-      />
+      
       <div 
         className="
           text-neutral-500 
@@ -118,7 +114,7 @@ const RegisterModal= () => {
           font-light
         "
       >
-        <p>Already have an account?
+        <p>Gave an account?
           <span 
             onClick={onToggle} 
             className="

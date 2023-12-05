@@ -1,13 +1,13 @@
 'use client';
 
-import { 
-  FieldErrors, 
-  FieldValues, 
-  UseFormRegister 
+import { useEffect, useState } from "react";
+import {
+  FieldErrors,
+  FieldValues,
+  UseFormRegister
 } from "react-hook-form";
-import { BiDollar } from "react-icons/bi";
 
-interface InputProps {
+interface TextareaProps {
   id: string;
   label: string;
   type?: string;
@@ -18,25 +18,29 @@ interface InputProps {
   errors: FieldErrors
 }
 
-const Input: React.FC<InputProps> = ({
+const Textarea: React.FC<TextareaProps> = ({
   id,
   label,
-  type = "text", 
-  disabled, 
+  disabled,
   formatPrice,
   register,
   required,
   errors,
 }) => {
+
+
   return (
     <div className="w-full relative">
-      <input
+      <textarea
         id={id}
         disabled={disabled}
         {...register(id, { required })}
-        placeholder=" "
-        type={type}
+        placeholder=''
         className={`
+          h-40
+          xl:h-44
+          2xl:h-56
+          resize-none
           peer
           w-full
           p-4
@@ -55,7 +59,7 @@ const Input: React.FC<InputProps> = ({
           ${errors[id] ? 'focus:border-rose-500' : 'focus:border-black'}
         `}
       />
-      <label 
+      <label
         className={`
           absolute 
           text-md
@@ -76,7 +80,7 @@ const Input: React.FC<InputProps> = ({
         {label}
       </label>
     </div>
-   );
+  );
 }
- 
-export default Input;
+
+export default Textarea;

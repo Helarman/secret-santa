@@ -31,34 +31,34 @@ const UserMenu: React.FC<UserMenuProps> = ({
     setIsOpen((value) => !value);
   }, []);
 
-  const onRent = useCallback(() => {
-    if (!currentUser) {
-      return loginModal.onOpen();
-    }
-
-    rentModal.onOpen();
-  }, [loginModal, rentModal, currentUser]);
-
+  
   return (
     <div className="relative">
-      <div className="flex flex-row items-center gap-3">
+      <div className="flex flex-row items-center gap-3 ">
         <div
           onClick={toggleOpen}
           className="
-            font-semibold
-            text-sm
-            uppercase
+            
+            text-right
+            md:border-l-2
+            pl-5
             flex 
             flex-row 
             items-center 
             gap-3 
             cursor-pointer 
             transition 
+            mt-3
+            md:mt-0
+            text-gray-900
+            dark:text-violet-50
           "
         >
-          
-          {currentUser?.name}
-          <Avatar src={currentUser?.image} />
+          <p>
+          <span className="font-semibold text-sm">{currentUser?.name}</span><br/>
+          <span className="font-normal text-xs">{currentUser?.email}</span>
+          </p>
+          <Avatar src={currentUser?.image} size={45}/>
         </div>
       </div>
       {isOpen && (
@@ -70,25 +70,27 @@ const UserMenu: React.FC<UserMenuProps> = ({
             md:w-3/4 
             bg-white 
             overflow-hidden 
-            right-0 
-            top-12 
+            right-0
+            md:top-16
+            top-[18px] 
             text-md
+            dark:bg-[#1E2746] 
           "
         >
-          <div className="flex flex-col cursor-pointer">
+          <div className="flex flex-col items-start cursor-pointer p-2 text-left">
             {currentUser ? (
               <>
                 <button onClick={() => signOut()}>
-                  logout
+                  Logout
                 </button>
               </>
             ) : (
               <>
                 <button onClick={loginModal.onOpen}>
-                  login
+                  Login
                 </button>
                 <button onClick={registerModal.onOpen}>
-                  register
+                  Register
                 </button>
               </>
             )}

@@ -3,30 +3,35 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { SafeUser } from "@/app/types";
-
-
+import { Mountains_of_Christmas } from 'next/font/google'
 
 import { AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
+import { FaPlus } from "react-icons/fa6";
 
 import MenuItem from "./MenuItem";
 import { ThemeButton } from "../ThemeButton";
+import Button from "../Button";
+import useRentModal from "@/app/hooks/useRentModal";
+import Footer from "../footer/Footer";
 
-
+const logoFont = Mountains_of_Christmas({
+    subsets: ['latin'],
+    weight: '400'
+});
 
 const NavLinks = [
-    { label: 'Link', href: '/link' },
-    { label: 'Link', href: '/link' },
-    { label: 'Link', href: '/link' },
-    { label: 'Link', href: '/link' },
-    { label: 'Link', href: '/link' },
-    { label: 'Link', href: '/link' },
+    { label: 'Invites', link: '/rooms/invites', icon: FaPlus },
+    { label: 'Your rooms', link: '/rooms/your', icon: FaPlus },
+    { label: 'Owned rooms', link: '/rooms/owned', icon: FaPlus },
 ]
 
 const Sidebar = ({
-    
+
 }) => {
 
     const router = useRouter();
+    const rentModal = useRentModal();
+
     const [isSidebarOpen, setSidebarOpen] = useState(false);
 
     const toggleSidebar = () => {
@@ -66,12 +71,13 @@ const Sidebar = ({
                 className={`
                 block 
                 py-4 
-                px-6 
+                
+                
                 top-0 
                 bottom-0 
                 w-80     
                 bg-white
-                dark:bg-[#28253b]
+                dark:bg-[#1E2746]
                 shadow-xl 
                 left-0 
                 fixed
@@ -106,12 +112,12 @@ const Sidebar = ({
                         className="
                         flex 
                         bg-white
-                        dark:bg-[#28253b]
+                        dark:bg-[#1E2746]
                         dark:text-white
                         flex-col 
                         items-stretch 
                         opacity-100  
-                        relative mt-4 
+                        relative 
                         overflow-y-auto 
                         overflow-x-hidden 
                         h-auto z-40 
@@ -119,11 +125,12 @@ const Sidebar = ({
                         flex-1 
                         rounded 
                         w-full
+                        mb-auto
                     "
                     >
                         <div
                             className="
-                            bg-[#ee5253]
+                            px-10
                             md:flex 
                             items-end 
                             justify-between 
@@ -136,12 +143,13 @@ const Sidebar = ({
                         >
                             <button>
                                 <span
-                                    className="
-                                    dark:text-white
+                                    className={`${logoFont.className}
+                                    'dark:text-white
                                     text-gray-700
-                                    text-xl 
-                                    font-semibold
-                                "
+                                    dark:text-white
+                                    text-4xl 
+                                    font-semibold'
+                                `}
                                 >
                                     Hidden santa
                                 </span>
@@ -152,7 +160,7 @@ const Sidebar = ({
                             <button
                                 onClick={toggleSidebar}
                                 type="button"
-                                className="md:hidden justify-end"
+                                className=" justify-end md:hidden"
                             >
                                 <span className="sr-only">
                                     Open sidebar
@@ -173,15 +181,23 @@ const Sidebar = ({
                         >
 
                             <div className="my-4 md:min-w-full">
+                                <div className="block w-full px-10 ">
+                                    <Button onClick={rentModal.onOpen} label='Add new room' type='primary' icon={FaPlus} />
+                                </div>
                                 <ul >
-                                    {NavLinks && NavLinks.map(({ label, href }) => (
-                                        <MenuItem key={label} label={label} link={href} />
+
+                                    {NavLinks && NavLinks.map(({ label, link, icon }) => (
+                                        <MenuItem key={label} label={label} link={link} icon={icon} />
                                     ))}
-                                    
+
                                 </ul>
                             </div>
-                            <ThemeButton/>
+
                         </div>
+                    </div>
+    
+                    <div >
+                        <Footer />
                     </div>
                 </div>
             </nav>
