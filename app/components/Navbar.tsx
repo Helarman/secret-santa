@@ -1,7 +1,6 @@
 'use client'
 
 import { SafeUser } from "../types";
-import NotificationButton from "./NotificationsButton";
 import { ThemeButton } from "./ThemeButton";
 import Search from "./navbar/Search";
 import UserMenu from "./sidebar/UserMenu";
@@ -22,8 +21,8 @@ const Navbar: React.FC<NavbarProps> = ({
             z-10 
             lg:flex-row 
             lg:flex-nowrap 
-               lg:justify-start 
-               flex 
+            lg:justify-start 
+            flex 
             justify-between
             items-center 
             py-4 
@@ -41,10 +40,7 @@ const Navbar: React.FC<NavbarProps> = ({
                <Search />
             </div>
             <div className="flex lg:w-3/12 w-full lg:justify-end justify-between">
-               <div className="flex flex-row">
-                  <ThemeButton />
-                  <NotificationButton />
-               </div>
+               
                <UserMenu currentUser={currentUser} />
             </div>
          </div>
