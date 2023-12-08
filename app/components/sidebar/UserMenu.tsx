@@ -4,13 +4,15 @@ import { useCallback, useEffect, useState } from "react";
 import { GoSignOut } from "react-icons/go";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useTheme } from "next-themes"
+import { FaMoon, FaSun } from 'react-icons/fa6'
+
 
 import useLoginModal from "@/app/hooks/useLoginModal";
 import useRegisterModal from "@/app/hooks/useRegisterModal";
 import { SafeUser } from "@/app/types";
 
 import Avatar from "@/app/components/Avatar";
-import { ThemeButton } from "../ThemeButton";
 import Notification from "@/app/components/Notification";
 import { FaBell } from "react-icons/fa6";
 
@@ -40,16 +42,29 @@ const UserMenu: React.FC<UserMenuProps> = ({
     setNotificationsIsOpen((value) => !value);
   }, []);
 
+  const [toggle, setToggle] = useState(false)
+
+  const toggleTheme = () => {
+      setToggle(!toggle)
+  }
+  const { setTheme } = useTheme()
 
   return (
     <>
       <div className="flex flex-row">
 
-        <ThemeButton />
-
+        <div className="mr-5 flex" onClick={toggleTheme}>
+          
+          {toggle ? <button className="p-5 rounded-full bg-gray-100  text-gray-900 dark:bg-[#181F39] dark:text-white" onClick={() => setTheme("dark")}>
+            <FaMoon />
+          </button> :
+            <button className="p-5 rounded-full bg-gray-100  text-gray-900 dark:bg-[#181F39] dark:text-white" onClick={() => setTheme("light")}>
+              <FaSun />
+            </button>}
+        </div>
         <div className="mr-5 flex">
           <button
-            
+
             onClick={toggleNotificationsOpen}
             className="p-5 rounded-full bg-gray-100 text-gray-900 dark:bg-[#181F39] dark:text-white" >
             <FaBell />

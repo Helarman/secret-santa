@@ -4,7 +4,8 @@ import Image from "next/image";
 import { useCallback, useState } from "react";
 
 interface AvatarProps {
-  src: string | null | undefined;
+  src: string| null | undefined
+  title?: string
   size: number;
   hover?: boolean
   children?: React.ReactNode;
@@ -13,15 +14,12 @@ interface AvatarProps {
 const Avatar: React.FC<AvatarProps> = ({
   src,
   size,
-  hover,
-  children
+  title
 }) => {
-  const [isShow, setIsShow] = useState(false);
   return (
 
     <Image
-      onMouseEnter={() => setIsShow(true)}
-      onMouseLeave={() => setIsShow(false)}
+      title={title}
       className="rounded-full"
       height={size}
       width={size}

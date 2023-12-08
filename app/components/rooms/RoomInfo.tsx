@@ -2,9 +2,11 @@
 
 
 import { SafeUser } from "@/app/types";
+import { FaUserPlus } from "react-icons/fa";
 
 import Avatar from "../Avatar";
 import Countdown from "react-countdown";
+import Button from "../Button";
 
 interface RoomInfoProps {
   user: SafeUser,
@@ -20,40 +22,26 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
   description,
 }) => {
 
-  const Date = '2024-01-01T00:00:00'
-
-  const renderer: React.FC<RendererType> = ({ days, hours, minutes, seconds, completed }) => {
-    if (completed) {
-      // Render a completed state
-      return <p>vse</p>
-    } else {
-      // Render a countdown
-      return <span>Until the end left {days} Days {hours} Hours {minutes} Minutes {seconds} Seconds</span>;
-    }
-  };
   return (
-    <div
-      className="
+    <div className="
         flex 
         flex-col 
-        gap-8 
+        
         bg-white
         dark:bg-[#1E2746] 
-        dark:text-white
-        p-5 
-        w-full 
-        text-right
-      "
-    >
-      <div
-        className="
+        dark:text-white  w-full 
+        text-right">
+      <div className="p-5 gap-8  flex 
+        flex-col ">
+        <div
+          className="
           flex 
           flex-col
           gap-2
         "
-      >
-        <div
-          className="
+        >
+          <div
+            className="
             text-gray-700
             dark:text-white
             text-xl 
@@ -65,63 +53,52 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
             text-right
             gap-2
           "
-        >
-          <div className="text-right">
-            Room by {user?.name}
+          >
+
+            <div className="text-right">
+              Room by {user?.name}
+            </div>
+            <Avatar src={user?.image} size={45} />
+
           </div>
-          <Avatar src={user?.image} size={45} />
-
         </div>
-      </div>
-      <hr />
+        <hr />
 
-      <div
-        className="
+        <div
+          className="
           text-gray-700
           dark:text-white
           text-xl 
           font-semibold 
           font-light
         "
-      >
-        {title}
-      </div>
-      <hr />
-      <div
-        className="
-          text-gray-700
-          dark:text-white
-          text-xl 
-          font-semibold 
-          font-light
-        "
-      >
-        <Countdown date={Date} renderer={renderer} />
-      </div>
-      <hr />
+        >
+          {title}
+        </div>
+        <hr />
 
-      <div
-        className="
+        <div
+          className="
           text-lg 
           font-light 
           text-neutral-500
           dark:text-white
         "
-      >
-        {description}
-      </div>
+        >
+          {description}
+        </div>
 
-      <hr />
+        <hr />
 
-      <div
-        className="
+        <div
+          className="
           flex 
           flex-col
           gap-2
         "
-      >
-        <div
-          className="
+        >
+          <div
+            className="
             text-gray-700
             dark:text-white
             text-xl 
@@ -133,17 +110,36 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
             text-right
             gap-2
           "
-        >
-          <Avatar src={user?.image} size={70} hover>emailsososolong@domain.com</Avatar>
-          <Avatar src={user?.image} size={70} hover>emailsososolong@domain.com</Avatar>
-          <Avatar src={user?.image} size={70} hover>emailsososolong@domain.com</Avatar>
-          <Avatar src={user?.image} size={70} hover>emailsososolong@domain.com</Avatar>
-          <Avatar src={user?.image} size={70} hover>emailsososolong@domain.com</Avatar>
+          >
+            <button
+              title="Add member"
+              className="
+                hover:opacity-75 
+                opacity-100
+                w-16 
+                h-16 
+                bg-gray-700 
+                text-white 
+                flex 
+                justify-center 
+                items-center 
+                rounded-full
+              "
+            >
+              <FaUserPlus className="w-6 h-6 " />
+            </button>
+
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
+
+          </div>
 
         </div>
-      </div>
 
-    </div>
+      </div>
+    </div >
   );
 }
 
