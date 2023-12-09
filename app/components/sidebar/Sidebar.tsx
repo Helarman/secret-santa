@@ -2,14 +2,12 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { SafeUser } from "@/app/types";
 import { Mountains_of_Christmas } from 'next/font/google'
 
 import { AiOutlineMenuUnfold, AiOutlineMenuFold } from "react-icons/ai";
 import { FaPlus } from "react-icons/fa6";
 
 import MenuItem from "./MenuItem";
-import { ThemeButton } from "../ThemeButton";
 import Button from "../Button";
 import useRentModal from "@/app/hooks/useRentModal";
 import Footer from "../footer/Footer";

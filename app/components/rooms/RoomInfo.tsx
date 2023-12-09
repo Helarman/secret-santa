@@ -1,11 +1,12 @@
 'use client';
 
+import toast from "react-hot-toast";
 
 import { SafeUser } from "@/app/types";
 import { FaUserPlus } from "react-icons/fa";
+import { FaGift } from "react-icons/fa6";
 
 import Avatar from "../Avatar";
-import Countdown from "react-countdown";
 import Button from "../Button";
 
 interface RoomInfoProps {
@@ -14,7 +15,6 @@ interface RoomInfoProps {
   title: string;
 }
 
-type RendererType = { days: number, hours: number, minutes: number, seconds: number, completed: boolean }
 
 const RoomInfo: React.FC<RoomInfoProps> = ({
   user,
@@ -22,37 +22,74 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
   description,
 }) => {
 
+  const onAdMember = () => {
+    toast((t) => (
+      <>
+        <div className="flex items-center">
+
+          <FaUserPlus size={18} />
+        </div>
+
+        <div className="flex-1 flex-row pl-3 py-3">
+          Member added
+        </div>
+      </>
+    ));
+  }
+
+  const onStart = () => {
+    toast((t) => (
+      <>
+        <div className="flex items-center">
+          <FaGift size={18} />
+        </div>
+
+        <div className="flex-1 flex-row pl-3 py-3">
+          Started
+        </div>
+      </>
+    ));
+  }
+
   return (
     <div className="
         flex 
         flex-col 
-        
         bg-white
         dark:bg-[#1E2746] 
         dark:text-white  w-full 
-        text-right">
-      <div className="p-5 gap-8  flex 
-        flex-col ">
+        text-right
+      "
+    >
+      <div 
+        className="
+          p-5 
+          gap-8  
+          flex 
+          flex-col 
+          mb-auto
+        "
+      >
         <div
           className="
-          flex 
-          flex-col
-          gap-2
-        "
+            flex 
+            flex-col
+            gap-2
+          "
         >
           <div
             className="
-            text-gray-700
-            dark:text-white
-            text-xl 
-            font-semibold 
-            flex 
-            flex-row
-            items-center 
-            justify-end
-            text-right
-            gap-2
-          "
+              text-gray-700
+              dark:text-white
+              text-xl 
+              font-semibold 
+              flex 
+              flex-row
+              items-center 
+              justify-end
+              text-right
+              gap-2
+            "
           >
 
             <div className="text-right">
@@ -66,12 +103,12 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
 
         <div
           className="
-          text-gray-700
-          dark:text-white
-          text-xl 
-          font-semibold 
-          font-light
-        "
+            text-gray-700
+            dark:text-white
+            text-xl 
+            font-semibold 
+            font-light
+          "
         >
           {title}
         </div>
@@ -79,11 +116,11 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
 
         <div
           className="
-          text-lg 
-          font-light 
-          text-neutral-500
-          dark:text-white
-        "
+            text-lg 
+            font-light 
+            text-neutral-500
+            dark:text-white
+          "
         >
           {description}
         </div>
@@ -92,26 +129,27 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
 
         <div
           className="
-          flex 
-          flex-col
-          gap-2
-        "
+            flex 
+            flex-col
+            gap-2
+          "
         >
           <div
             className="
-            text-gray-700
-            dark:text-white
-            text-xl 
-            font-semibold 
-            flex 
-            flex-row
-            items-start 
-            justify-end
-            text-right
-            gap-2
-          "
+              text-gray-700
+              dark:text-white
+              text-xl 
+              font-semibold 
+              flex 
+              flex-row
+              items-start 
+              justify-end
+              text-right
+              gap-2
+            "
           >
             <button
+              onClick={onAdMember}
               title="Add member"
               className="
                 hover:opacity-75 
@@ -129,16 +167,20 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
               <FaUserPlus className="w-6 h-6 " />
             </button>
 
-            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
-            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
-            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
-            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com'/>
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com' />
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com' />
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com' />
+            <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com' />
 
           </div>
 
         </div>
 
       </div>
+      <div className="block w-full px-10 pb-10">
+        <Button onClick={onStart} label='Start' type='primary' />
+      </div>
+
     </div >
   );
 }

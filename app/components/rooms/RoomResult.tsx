@@ -4,7 +4,7 @@
 import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
-import { FaAnglesRight  } from "react-icons/fa6";
+import { FaAnglesRight } from "react-icons/fa6";
 
 interface RoomResultProps {
   user: SafeUser,
@@ -61,7 +61,8 @@ const RoomResult: React.FC<RoomResultProps> = ({
         </div>
       </div>
       <hr />
-      <div className="flex justify-end flex-row items-center">
+
+      <div className="grid grid-cols-3">
         <div
           className="
           text-gray-700
@@ -71,14 +72,15 @@ const RoomResult: React.FC<RoomResultProps> = ({
           font-light
           mr-20
           h-48
-          flex justify-center
-          center
-          border-2
+          text-center
+          grid 
+          justify-center
+          items-center
         "
         >
           <div>
             <Avatar src={user?.image} size={96} />
-            <h1 className="mr-10">You</h1>
+            <h1 className="mt-5">You</h1>
           </div>
         </div>
         <div
@@ -89,15 +91,16 @@ const RoomResult: React.FC<RoomResultProps> = ({
           font-semibold 
           font-light
           h-48
-
-
-          border-2
+          text-center
+          grid 
+          justify-center
+          items-center
         "
         >
           <div>
-            
+
             <FaAnglesRight className="w-28 h-28" />
-            <h1 className="mr-10">Give a gift to</h1>
+            <h1 className="mt-5">Gift to</h1>
           </div>
         </div>
         <div
@@ -109,14 +112,16 @@ const RoomResult: React.FC<RoomResultProps> = ({
           font-light
           ml-20
           h-48
-          center
-
-          border-2
+          flex
+          text-center
+          grid 
+          justify-center
+          items-center
         "
         >
           <div>
             <Avatar src={user?.image} size={96} />
-            <h1 className="mr-10">Name <br/>Lastname</h1>
+            <h1 className="mt-5">Name <br />Lastname</h1>
           </div>
         </div>
       </div>

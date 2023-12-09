@@ -37,11 +37,12 @@ const RoomClient: React.FC<RoomClientProps> = ({
 
   return (
     <Container>
-      <div className="flex flex-col lg:flex-row">
+      <div className="flex flex-col lg:flex-row h-[70vh]">
         <div className="
-          aspect-[2/3]
-          lg:w-3/12
+          lg:w-4/12
+          aspect-ratio-[2/3]
           w-full
+          h-full
           overflow-hidden 
           relative
         "
@@ -56,7 +57,7 @@ const RoomClient: React.FC<RoomClientProps> = ({
         </div>
         <div
           className="
-            flex lg:w-9/12 w-full
+            flex lg:w-8/12 w-full
             "
         >
           {isResult ?
