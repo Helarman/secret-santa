@@ -20,8 +20,12 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
+  roomsIDs String[] @db.ObjectId
+  rooms   Room[]   @relation(fields: [roomsIDs], references: [id])
+
   accounts      Account[]
-  rooms         Room[]
+  ownedRooms Room[]  @relation("Owned")
+
   notifications Notification[]
 }
 
@@ -51,8 +55,11 @@ model Room {
   imgNum      Int
   createdAt   DateTime @default(now())
   userId      String   @db.ObjectId
-  
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  membersIDs String[] @db.ObjectId
+  members   User[]   @relation(fields: [membersIDs], references: [id])
+
+  user User @relation("Owned", fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model Notification {
