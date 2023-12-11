@@ -52,6 +52,20 @@ const YourRooms: React.FC<YourRoomsProps> = ({
     rentModal.onOpen();
   }, [loginModal, rentModal, currentUser]);
 
+  if (rooms.length < 1) {
+    return (
+      <div id="#OwnedRooms">
+        <Container>
+          <Heading
+            title="Owned rooms"
+            subtitle="List of owned rooms"
+          />
+          <h1>Empty State</h1>
+        </Container>
+      </div>
+    )
+  }
+
   return (
     <div id="#OwnedRooms">
       <Container>

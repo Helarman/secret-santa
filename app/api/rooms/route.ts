@@ -30,7 +30,8 @@ export async function POST(
       title,
       description,
       imgNum,
-      userId: currentUser.id
+      userId: currentUser.id,
+      membersIDs: currentUser.id
     }
   });
 

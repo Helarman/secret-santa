@@ -65,6 +65,8 @@ const Button: React.FC<ButtonProps> = ({
   };
 
   const color = colors[type];
+  
+
 
   return (
     <button
@@ -74,7 +76,7 @@ const Button: React.FC<ButtonProps> = ({
         relative
         disabled:opacity-70
         disabled:cursor-not-allowed
-        text-white
+        
         transition
         w-full
         ${rounded ? 'rounded-full' : ''}
@@ -87,6 +89,7 @@ const Button: React.FC<ButtonProps> = ({
         ${hover}
         ${outline ? 'bg-transparent' : background}
         ${outline ? hover : 'hover:opacity-80'}
+        ${outline ? color : 'text-white'}
       `}
     >
       {Icon && (
@@ -99,7 +102,7 @@ const Button: React.FC<ButtonProps> = ({
         "
         />
       )}
-      {label}
+      {label} 
     </button>
   );
 }

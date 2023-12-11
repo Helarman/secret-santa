@@ -24,6 +24,19 @@ const YourRooms: React.FC<YourRoomsProps> = ({
   currentUser
 }) => {
 
+  if (rooms.length < 1) {
+    return (
+      <div id="#YourRooms">
+        <Container>
+          <Heading
+            title="Owned rooms"
+            subtitle="List of owned rooms"
+          />
+          <h1>Empty State</h1>
+        </Container>
+      </div>
+    )
+  }
 
   return (
     <div id="#YourRooms" className="pt-8">

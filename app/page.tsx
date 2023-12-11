@@ -10,14 +10,18 @@ interface HomeProps {
 };
 
 const Home = async ({ searchParams }: HomeProps) => {
-  const rooms = await getRooms(searchParams);
   const currentUser = await getCurrentUser();
 
+  const ownedRooms = await getRooms({ userId: currentUser?.id });
+
+  const rooms = await getRooms({ memberId: currentUser?.id });
+  
   return (
     <>
+      {currentUser?.id}
       <OwnedRooms
 
-        rooms={rooms}
+        rooms={ownedRooms}
         currentUser={currentUser}
       />
       <YourRooms

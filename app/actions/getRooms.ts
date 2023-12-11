@@ -2,6 +2,7 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IRoomsParams {
   userId?: string;
+  memberId?: string;
 }
 
 export default async function getRooms(
@@ -9,7 +10,8 @@ export default async function getRooms(
 ) {
   try {
     const {
-      userId
+      userId,
+      memberId
     } = params;
 
     let query: any = {};
@@ -18,8 +20,14 @@ export default async function getRooms(
       query.userId = userId;
     }
 
+    if (memberId) {
+      query.membersIDs =  {
+        has: memberId,
+      }
+    }
+
     const rooms = await prisma.room.findMany({
-      where: query,
+      where:query,
       orderBy: {
         createdAt: 'desc'
       }

@@ -107,11 +107,11 @@ const RentModal = () => {
               label="Members"
               register={register}
               errors={errors}
-              required
+              
             />
           </div>
         </div>
-        <div className='w-full md:w-4/12 flex flex-col justify-between'>
+        <div className='w-full md:w-4/12 flex flex-col justify-between '>
           <ImageSelect
             onChange={(value) => setCustomValue('imgNum', value)}
             value={imgNum}
