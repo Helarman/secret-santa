@@ -6,16 +6,19 @@ import qs from 'query-string';
 import { useRouter, useSearchParams } from "next/navigation";
 import {
     FieldValues,
+    SubmitHandler,
     useForm
 } from 'react-hook-form';
 import Input from "../components/inputs/Input";
 import Button from "../components/Button";
 import { SafeUser } from "../types";
+import toast from "react-hot-toast";
+import UserCard from "../components/UserCard";
 
-export interface AddMemberProps{
+export interface AddMemberProps {
     users?: SafeUser[]
 }
-const AddMember: React.FC<AddMemberProps> = ({users}) => {
+const AddMember: React.FC<AddMemberProps> = ({ users }) => {
 
     const params = useSearchParams();
     const router = useRouter();
@@ -23,6 +26,7 @@ const AddMember: React.FC<AddMemberProps> = ({users}) => {
     const {
         register,
         watch,
+        handleSubmit,
         formState: {
             errors,
         },
@@ -36,7 +40,7 @@ const AddMember: React.FC<AddMemberProps> = ({users}) => {
     const userName = watch('userName');
 
 
-    const onSubmit = useCallback(async () => {
+    const onSubmit: SubmitHandler<FieldValues> = useCallback(async () => {
 
 
         let currentQuery = {};
@@ -65,27 +69,44 @@ const AddMember: React.FC<AddMemberProps> = ({users}) => {
             params
         ]);
 
+    const onAddMember = (id: any) => {
+        toast.success(id)
+    }
+    const [hasMounted, setHasMounted] = useState(false);
+
+    useEffect(() => {
+        setHasMounted(true);
+    }, []);
 
     return (
-        <div className="uppercase">
-            {userName}
-            <Container>
-                <Input
-                    id="userName"
-                    label="Search user"
-                    register={register}
-                    errors={errors}
-
-                />
-                <Button label='Search' type='primary' onClick={onSubmit} />
+        <Container>
+            <div className="flex flex-col bg-white  p-5 ">
+                <div className="mb-5 flex md:flex-row flex-col">
+                    <div className="w-full">
+                        <Input
+                            id="userName"
+                            label="Search user"
+                            register={register}
+                            errors={errors}
+                        />
+                    </div>
+                    <div className="md:w-2/12 w-full">
+                        <Button label='Search' type='primary' onClick={handleSubmit(onSubmit)} />
+                    </div>
+                </div>
 
                 <ul>
-                    {users && users.map(({ id, name, image, }) => (
-                        <li className="mt-5" key={id}><p>{name}</p></li>
+
+                    {hasMounted && users && users.map(({ id, name, image, }) => (
+                        <li key={id}>
+                            <UserCard name={name} image={image} />
+                        </li>
+
                     ))}
                 </ul>
-            </Container>
-        </div>
+            </div >
+        </Container>
+
     )
 }
 

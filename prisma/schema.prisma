@@ -21,10 +21,10 @@ model User {
   updatedAt      DateTime  @updatedAt
 
   roomsIDs String[] @db.ObjectId
-  rooms   Room[]   @relation(fields: [roomsIDs], references: [id])
+  rooms    Room[]   @relation(fields: [roomsIDs], references: [id])
 
-  accounts      Account[]
-  ownedRooms Room[]  @relation("Owned")
+  accounts   Account[]
+  ownedRooms Room[]    @relation("Owned")
 
   notifications Notification[]
 }
@@ -57,7 +57,7 @@ model Room {
   userId      String   @db.ObjectId
 
   membersIDs String[] @db.ObjectId
-  members   User[]   @relation(fields: [membersIDs], references: [id])
+  members    User[]   @relation(fields: [membersIDs], references: [id])
 
   user User @relation("Owned", fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -66,7 +66,7 @@ model Notification {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   title     String
   type      String
-  link      String
+  roomId    String
   createdAt DateTime @default(now())
   userId    String   @db.ObjectId
 

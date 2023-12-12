@@ -16,7 +16,8 @@ export async function POST(
   const {
     title,
     type,
-    link
+    roomId,
+    userId
   } = body;
 
   Object.keys(body).forEach((value: any) => {
@@ -29,8 +30,8 @@ export async function POST(
     data: {
       title,
       type,
-      link,
-      userId: currentUser.id
+      roomId,
+      userId
     }
   });
 

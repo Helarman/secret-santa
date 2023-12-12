@@ -12,16 +12,19 @@ import Container from "@/app/components/Container";
 import Image from "next/image";
 import RoomInfo from "@/app/components/rooms/RoomInfo";
 import RoomResult from "@/app/components/rooms/RoomResult";
+import RoomAddUsers from "@/app/components/rooms/RoomAddUsers";
 
 interface RoomClientProps {
   room: SafeRoom & {
     user: SafeUser;
   };
   currentUser?: SafeUser | null;
+  users?: SafeUser[]
 }
 
 const RoomClient: React.FC<RoomClientProps> = ({
   room,
+  users,
   currentUser
 }) => {
   const loginModal = useLoginModal();
@@ -76,6 +79,7 @@ const RoomClient: React.FC<RoomClientProps> = ({
         </div>
 
       </div>
+      <RoomAddUsers users={users} roomId={room.id} roomName={room.title}/>
       <button onClick={toggleState} className="p-3 border-2">Change state</button>
     </Container>
   );

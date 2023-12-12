@@ -76,7 +76,7 @@ const Button: React.FC<ButtonProps> = ({
         relative
         disabled:opacity-70
         disabled:cursor-not-allowed
-        
+        h-full
         transition
         w-full
         ${rounded ? 'rounded-full' : ''}
