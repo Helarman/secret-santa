@@ -45,7 +45,7 @@ export default async function RootLayout({
   }
 
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning style={{scrollBehavior: "smooth"}}>
       <body className={font.className}>
         <ThemeProvider
           attribute="class"

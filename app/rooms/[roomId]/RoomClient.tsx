@@ -38,6 +38,16 @@ const RoomClient: React.FC<RoomClientProps> = ({
     changeState(!isResult)
   }
 
+  const [addMember, setAddMember] = useState(false)
+
+  const showAddUser = () => {
+    setAddMember(true)
+  }
+
+  const hideAddUser = () => {
+    setAddMember(false)
+  }
+  
   return (
     <Container>
       <div className="flex flex-col lg:flex-row h-[70vh]">
@@ -65,12 +75,15 @@ const RoomClient: React.FC<RoomClientProps> = ({
         >
           {isResult ?
             <RoomResult
+              id={room.id}
               user={room.user}
               description={room.description}
               title={room.title}
             />
             :
             <RoomInfo
+              onClick={showAddUser}
+              id={room.id}
               user={room.user}
               description={room.description}
               title={room.title}
@@ -79,7 +92,7 @@ const RoomClient: React.FC<RoomClientProps> = ({
         </div>
 
       </div>
-      <RoomAddUsers users={users} roomId={room.id} roomName={room.title}/>
+        {addMember ? <RoomAddUsers onClick={hideAddUser} users={users} roomId={room.id} roomName={room.title} /> : ''}
       <button onClick={toggleState} className="p-3 border-2">Change state</button>
     </Container>
   );

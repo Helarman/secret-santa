@@ -1,7 +1,6 @@
 'use client'
 
 import { SafeUser } from "../types";
-import { ThemeButton } from "./ThemeButton";
 import Search from "./navbar/Search";
 import UserMenu from "./sidebar/UserMenu";
 

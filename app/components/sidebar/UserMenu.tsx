@@ -86,8 +86,8 @@ const UserMenu: React.FC<UserMenuProps> = ({
               min-w-48
             `}
           >
-            <Notification min title="Determination of Santa Clauses is completed! You give a gift to Name Lastname!" date="2023-12-07 02:00:00" link="" type='gift' />
-            <Notification min title="You are invited to the room Room Name from Alexander Ivanov!" date="2023-12-07 02:00:00" link="" type='invite' />
+            <Notification min title="Determination of Santa Clauses is completed! You give a gift to Name Lastname!" date="2023-12-07 02:00:00" type='gift' id={""} />
+            <Notification min title="You are invited to the room Room Name from Alexander Ivanov!" date="2023-12-07 02:00:00" type='invite' id={""} />
             <div
               className="h-0 my-2 border border-solid border-blueGray-100"
             ></div>

@@ -7,13 +7,15 @@ import Avatar from "../Avatar";
 import { FaAnglesRight } from "react-icons/fa6";
 
 interface RoomResultProps {
-  user: SafeUser,
+  id: string;
+  user: SafeUser;
   description: string;
   title: string;
 }
 
 
 const RoomResult: React.FC<RoomResultProps> = ({
+  id,
   user,
   title,
 }) => {

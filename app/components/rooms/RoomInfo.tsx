@@ -8,34 +8,27 @@ import { FaGift } from "react-icons/fa6";
 
 import Avatar from "../Avatar";
 import Button from "../Button";
+import { useState } from "react";
 
 interface RoomInfoProps {
-  user: SafeUser,
+  id: string;
+  user: SafeUser
   description: string;
   title: string;
+  onClick: () => void
 }
 
 
 const RoomInfo: React.FC<RoomInfoProps> = ({
+  id,
   user,
   title,
   description,
+  onClick
 }) => {
 
-  const onAdMember = () => {
-    toast((t) => (
-      <>
-        <div className="flex items-center">
+ 
 
-          <FaUserPlus size={18} />
-        </div>
-
-        <div className="flex-1 flex-row pl-3 py-3">
-          Member added
-        </div>
-      </>
-    ));
-  }
 
   const onStart = () => {
     toast((t) => (
@@ -52,7 +45,9 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
   }
 
   return (
-    <div className="
+    <div
+      id="top" 
+      className="
         flex 
         flex-col 
         bg-white
@@ -95,7 +90,7 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
             <div className="text-right">
               Room by {user?.name}
             </div>
-            <Avatar src={user?.image} size={45} />
+            <Avatar src={user?.image} size={44} />
 
           </div>
         </div>
@@ -148,8 +143,9 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
               gap-2
             "
           >
-            <button
-              onClick={onAdMember}
+            <a
+              onClick={onClick}
+              href={`/rooms/${id}#addUsers`}
               title="Add member"
               className="
                 hover:opacity-75 
@@ -165,7 +161,7 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
               "
             >
               <FaUserPlus className="w-6 h-6 " />
-            </button>
+            </a>
 
             <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com' />
             <Avatar src={user?.image} size={64} hover title='emailsososolong@domain.com' />
