@@ -20,6 +20,9 @@ model User {
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
 
+  giver    Giving[] @relation("Giver")
+  recipien Giving[] @relation("Recipient")
+
   roomsIDs String[] @db.ObjectId
   rooms    Room[]   @relation(fields: [roomsIDs], references: [id])
 
@@ -55,11 +58,14 @@ model Room {
   imgNum      Int
   createdAt   DateTime @default(now())
   userId      String   @db.ObjectId
+  finished    Boolean
 
   membersIDs String[] @db.ObjectId
   members    User[]   @relation(fields: [membersIDs], references: [id])
 
   user User @relation("Owned", fields: [userId], references: [id], onDelete: Cascade)
+
+  giving Giving[] @relation("Giving")
 }
 
 model Notification {
@@ -71,4 +77,17 @@ model Notification {
   userId    String   @db.ObjectId
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Giving {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  roomId      String   @db.ObjectId
+  giverId     String   @db.ObjectId
+  recipientId String   @db.ObjectId
+  createdAt   DateTime @default(now())
+
+  giver    User @relation("Giver", fields: [giverId], references: [id], onDelete: Cascade)
+  recipien User @relation("Recipient", fields: [recipientId], references: [id], onDelete: Cascade)
+
+  room Room @relation("Giving", fields: [roomId], references: [id], onDelete: Cascade)
 }

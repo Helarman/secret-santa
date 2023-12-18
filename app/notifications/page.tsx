@@ -11,7 +11,6 @@ const Notification = async () => {
 
   return (
     <>
-      {userId}
       <NotificationClient notifications={notifications}/>
     </>
   )

@@ -52,7 +52,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
     >
       <div className="flex flex-col gap-2 w-full">
         <div
-          
+
           className="
             aspect-[2/3]
             w-full 
@@ -65,6 +65,7 @@ const RoomCard: React.FC<RoomCardProps> = ({
             fill
             onClick={() => router.push(`/rooms/${data.id}`)}
             className="
+            
               w-full 
               group-hover:scale-110 
               transition

@@ -2,6 +2,7 @@ import prisma from "@/app/libs/prismadb";
 
 export interface IUsersParams {
   name?: string;
+  id?: string[];
 }
 
 export default async function getUsers(
@@ -10,6 +11,7 @@ export default async function getUsers(
   try {
     const {
       name,
+      id,
     } = params;
 
     let query: any = {};
@@ -21,7 +23,10 @@ export default async function getUsers(
       }
     }
 
-    console.log(name)
+    if (id) {
+      query.id = id;
+    }
+
     const users = await prisma.user.findMany({
       where:query,
       orderBy: {
@@ -33,6 +38,8 @@ export default async function getUsers(
       createdAt: user.createdAt.toISOString(),
       updatedAt: user.createdAt.toISOString()
     }));
+    
+    
     return safeUsers;
   } catch (error: any) {
     throw new Error(error);

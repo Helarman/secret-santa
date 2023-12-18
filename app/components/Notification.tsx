@@ -4,7 +4,8 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaUserCheck, FaUserMinus, FaUserPlus } from "react-icons/fa";
-import { FaAngleDown, FaComputerMouse, FaGift, FaXmark } from "react-icons/fa6";
+import { FaAngleDown, FaComputerMouse, FaGift, FaClock, FaXmark} from "react-icons/fa6";
+import getCurrentUser from "../actions/getCurrentUser";
 
 export interface NotificationProps {
     id: string
@@ -14,7 +15,7 @@ export interface NotificationProps {
     min?: boolean
     userId?: string
     roomId?: string
-    createdAt?: string
+    createdAt?: string 
 }
 
 const Notification: React.FC<NotificationProps> = ({
@@ -26,6 +27,9 @@ const Notification: React.FC<NotificationProps> = ({
     userId,
     roomId
 }) => {
+    
+    const memberId = userId;
+
     const notificationId = id;
 
     const icons = {
@@ -34,7 +38,7 @@ const Notification: React.FC<NotificationProps> = ({
         system: <FaComputerMouse className="h-6 w-6 text-white" />,
         leave: <FaUserMinus className="h-6 w-6 text-white" />,
         join: <FaUserCheck className="h-6 w-6 text-white" />,
-        disabled: <FaXmark className="h-6 w-6 text-white" />,
+        disabled: <FaClock className="h-6 w-6 text-white" />,
     };
 
     const icon = icons[type];
@@ -73,7 +77,7 @@ const Notification: React.FC<NotificationProps> = ({
         invite = true;
     }
     const onAccept = () => {
-        axios.put(`/api/rooms/${roomId}`)
+        axios.put(`/api/rooms/${roomId}/${memberId}`)
             .then(() => {
                 toast((t) => (
                     <>
@@ -92,21 +96,27 @@ const Notification: React.FC<NotificationProps> = ({
             .catch(() => {
                 toast.error('Error');
             })
+
+        axios.put(`/api/notifications/${notificationId}`)
+            .catch(() => {
+                toast.error('Error');
+            })
         return null;
+
 
     }
 
     const onDecline = () => {
         axios.put(`/api/notifications/${notificationId}`)
             .then(() => {
-                
+
                 toast((t) => (
                     <>
                         <div className="flex items-center">
-        
+
                             <FaXmark size={18} />
                         </div>
-        
+
                         <div className="flex-1 flex-row pl-3 py-3">
                             Invite declined!
                         </div>
@@ -118,7 +128,7 @@ const Notification: React.FC<NotificationProps> = ({
                 toast.error('Error');
             })
         return null;
-        
+
     }
 
     return (

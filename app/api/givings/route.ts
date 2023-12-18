@@ -4,7 +4,7 @@ import prisma from "@/app/libs/prismadb";
 import getCurrentUser from "@/app/actions/getCurrentUser";
 
 export async function POST(
-  request: Request, 
+  request: Request,
 ) {
   const currentUser = await getCurrentUser();
 
@@ -13,11 +13,11 @@ export async function POST(
   }
 
   const body = await request.json();
-  const { 
-    title,
-    description,
-    imgNum
-   } = body;
+  const {
+    roomId,
+    giverId,
+    recipientId,
+  } = body;
 
   Object.keys(body).forEach((value: any) => {
     if (!body[value]) {
@@ -25,16 +25,13 @@ export async function POST(
     }
   });
 
-  const room = await prisma.room.create({
+  const giving = await prisma.giving.create({
     data: {
-      title,
-      description,
-      finished: false,
-      imgNum,
-      userId: currentUser.id,
-      membersIDs: currentUser.id
+      roomId,
+      giverId,
+      recipientId,
     }
   });
 
-  return NextResponse.json(room);
+  return NextResponse.json(giving);
 }

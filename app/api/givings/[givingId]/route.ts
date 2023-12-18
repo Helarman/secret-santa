@@ -6,11 +6,10 @@ import prisma from "@/app/libs/prismadb";
 
 interface IParams {
   roomId?: string;
-  finished?: boolean;
 }
 
 export async function DELETE(
-  request: Request,
+  request: Request, 
   { params }: { params: IParams }
 ) {
   const currentUser = await getCurrentUser();
@@ -37,30 +36,30 @@ export async function DELETE(
 
 
 export async function PUT(
-  request: Request,
+  request: Request, 
   { params }: { params: IParams }
 ) {
   const currentUser = await getCurrentUser();
-
+  
   if (!currentUser) {
     return NextResponse.error();
   }
 
-  const {
-    roomId,
+  const { 
+    roomId
   } = params;
   if (!roomId || typeof roomId !== 'string') {
     throw new Error('Invalid ID');
   }
 
-
-  
   const room = await prisma.room.update({
     where: {
       id: roomId
     },
     data: {
-      finished: true
+      membersIDs: {
+        push: currentUser.id
+      },
     }
   });
 

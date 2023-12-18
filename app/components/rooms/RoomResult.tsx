@@ -64,7 +64,21 @@ const RoomResult: React.FC<RoomResultProps> = ({
       </div>
       <hr />
 
-      <div className="grid grid-cols-3">
+      <div
+        className="
+    text-gray-700
+    dark:text-white
+    text-xl 
+    font-semibold 
+    font-light
+  "
+      >
+        {title}
+      </div>
+      <hr />
+
+
+      <div className="grid grid-cols-3 items-center h-full">
         <div
           className="
           text-gray-700
@@ -127,21 +141,6 @@ const RoomResult: React.FC<RoomResultProps> = ({
           </div>
         </div>
       </div>
-      <hr />
-      {/*<div
-        className="
-          text-gray-700
-          dark:text-white
-          text-xl 
-          font-semibold 
-          font-light
-        "
-      >
-        <div className="flex text-right justify-center items-center">
-          <h1 className="mr-10"> Preferred gifts</h1><br/>
-          <p>Proin in nunc nisl. Integer eu finibus mauris. Suspendisse laoreet.</p>
-        </div>
-      </div>*/}
     </div>
   );
 }

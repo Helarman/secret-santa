@@ -13,6 +13,7 @@ import Image from "next/image";
 import RoomInfo from "@/app/components/rooms/RoomInfo";
 import RoomResult from "@/app/components/rooms/RoomResult";
 import RoomAddUsers from "@/app/components/rooms/RoomAddUsers";
+import { finished } from "stream";
 
 interface RoomClientProps {
   room: SafeRoom & {
@@ -20,12 +21,14 @@ interface RoomClientProps {
   };
   currentUser?: SafeUser | null;
   users?: SafeUser[]
+  members?: SafeUser[]
 }
 
 const RoomClient: React.FC<RoomClientProps> = ({
   room,
   users,
-  currentUser
+  currentUser,
+  members
 }) => {
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -40,13 +43,14 @@ const RoomClient: React.FC<RoomClientProps> = ({
 
   const [addMember, setAddMember] = useState(false)
 
-  const showAddUser = () => {
-    setAddMember(true)
+  const toggleAddUser = () => {
+    setAddMember(!addMember)
   }
 
   const hideAddUser = () => {
     setAddMember(false)
   }
+  
   
   return (
     <Container>
@@ -73,7 +77,7 @@ const RoomClient: React.FC<RoomClientProps> = ({
             flex lg:w-8/12 w-full
             "
         >
-          {isResult ?
+          {room.finished ?
             <RoomResult
               id={room.id}
               user={room.user}
@@ -82,7 +86,10 @@ const RoomClient: React.FC<RoomClientProps> = ({
             />
             :
             <RoomInfo
-              onClick={showAddUser}
+              finished={room.finished}
+              currentUser={currentUser as SafeUser}
+              members={members}
+              onClick={toggleAddUser}
               id={room.id}
               user={room.user}
               description={room.description}
@@ -93,7 +100,6 @@ const RoomClient: React.FC<RoomClientProps> = ({
 
       </div>
         {addMember ? <RoomAddUsers onClick={hideAddUser} users={users} roomId={room.id} roomName={room.title} /> : ''}
-      <button onClick={toggleState} className="p-3 border-2">Change state</button>
     </Container>
   );
 }

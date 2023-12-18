@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from "react";
 import { IconType } from "react-icons";
 
 type ButtonType = 'primary' | 'secondary' | 'warning' | 'success' | 'danger';
@@ -31,7 +32,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary: "bg-gray-500",
     warning: "bg-amber-500",
     danger: "bg-red-500",
-    success: "bg-green-500",
+    success: "bg-green-500"
   };
 
   const background = backgrounds[type];
@@ -41,7 +42,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary: "hover:bg-gray-500 hover:text-white",
     warning: "hover:bg-amber-500 hover:text-white",
     danger: "hover:bg-red-500 hover:text-white",
-    success: "hover:bg-green-500 hover:text-white",
+    success: "hover:bg-green-500 hover:text-white"
   };
 
   const hover = hovers[type];
@@ -51,7 +52,7 @@ const Button: React.FC<ButtonProps> = ({
     secondary: "border-gray-500",
     warning: "border-amber-500",
     danger: "border-red-500",
-    success: "border-green-500",
+    success: "border-green-500"
   };
 
   const border = borders[type];
@@ -66,7 +67,6 @@ const Button: React.FC<ButtonProps> = ({
 
   const color = colors[type];
   
-
 
   return (
     <button

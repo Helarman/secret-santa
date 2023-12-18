@@ -7,6 +7,9 @@ import EmptyState from "@/app/components/EmptyState";
 
 import RoomClient from "./RoomClient";
 import getUsers, { IUsersParams } from "@/app/actions/getUsers";
+import Avatar from "@/app/components/Avatar";
+import getMembers from "@/app/actions/getMembers";
+import { SafeUser } from "@/app/types";
 
 interface UsersPageProps {
   searchParams: IUsersParams
@@ -21,11 +24,19 @@ interface RoomPageProps {
   params: IParams
   searchParams: UsersPageProps
 }
+
+
 const RoomPage = async ({ params, searchParams }: { params: IParams, searchParams: UsersPageProps }) => {
 
   const room = await getRoomById(params);
   const currentUser = await getCurrentUser();
-  const users = await getUsers(searchParams as any)
+  const users = await getUsers(searchParams as any);
+  const membersIDs = room?.membersIDs;
+  const id = membersIDs && membersIDs.map(id => ({ id }))
+
+  const members = await getMembers({ id: membersIDs })
+
+
 
   if (!room) {
     return (
@@ -38,12 +49,13 @@ const RoomPage = async ({ params, searchParams }: { params: IParams, searchParam
   return (
     <ClientOnly>
       <RoomClient
-        users={users as any}
+        users={users as SafeUser[]}
         room={room}
-        currentUser={currentUser}
+        currentUser={currentUser as SafeUser}
+        members={members as SafeUser[]}
       />
     </ClientOnly>
   );
 }
- 
+
 export default RoomPage;
