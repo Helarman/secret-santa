@@ -40,12 +40,16 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
   }
 
   const onTest = () => {
-    let originalMembers = [1, 2, 3, 4, 5];
+    let originalMembers = members;
     
-    for(var i = originalMembers.length-1;i>=0;i--){
-      toast.error(`before: ${originalMembers}`);
-      originalMembers.splice(Math.floor(Math.random()*originalMembers.length), 1);
-      toast.error(`after: ${originalMembers}`);
+    const fmembers =  originalMembers.map(items => items.name)
+
+    let giverMembers = fmembers
+
+    for(var i = giverMembers.length-1;i>=0;i--){
+      toast.error(`before: ${giverMembers}`);
+      giverMembers.splice(Math.floor(Math.random()*giverMembers.length), 1);
+      toast.error(`after: ${giverMembers}`);
     }
     
   }
