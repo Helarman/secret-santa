@@ -10,6 +10,8 @@ import getUsers, { IUsersParams } from "@/app/actions/getUsers";
 import Avatar from "@/app/components/Avatar";
 import getMembers from "@/app/actions/getMembers";
 import { SafeUser } from "@/app/types";
+import getRoomResult from "@/app/actions/getRoomResult";
+import getUserById from "@/app/actions/getUserById";
 
 interface UsersPageProps {
   searchParams: IUsersParams
@@ -32,12 +34,16 @@ const RoomPage = async ({ params, searchParams }: { params: IParams, searchParam
   const currentUser = await getCurrentUser();
   const users = await getUsers(searchParams as any);
   const membersIDs = room?.membersIDs;
-  const id = membersIDs && membersIDs.map(id => ({ id }))
-
   const members = await getMembers({ id: membersIDs })
+  const result = await getRoomResult({ roomId: room?.id as string, giverId: currentUser?.id as string})
+  const recipient = await getUserById({id: result?.recipientId as string})
 
+  if(!membersIDs || !currentUser){
+    return;
+  }
 
-
+  const isMember = membersIDs.includes(currentUser?.id)
+  
   if (!room) {
     return (
       <ClientOnly>
@@ -46,6 +52,13 @@ const RoomPage = async ({ params, searchParams }: { params: IParams, searchParam
     );
   }
 
+  if(!isMember) {
+    return(
+      <ClientOnly>
+        <EmptyState />
+      </ClientOnly>
+    )
+  }
   return (
     <ClientOnly>
       <RoomClient
@@ -53,6 +66,7 @@ const RoomPage = async ({ params, searchParams }: { params: IParams, searchParam
         room={room}
         currentUser={currentUser as SafeUser}
         members={members as SafeUser[]}
+        recipient={recipient as SafeUser}
       />
     </ClientOnly>
   );

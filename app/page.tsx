@@ -18,9 +18,7 @@ const Home = async ({ searchParams }: HomeProps) => {
   
   return (
     <>
-      {currentUser?.id}
       <OwnedRooms
-
         rooms={ownedRooms}
         currentUser={currentUser}
       />

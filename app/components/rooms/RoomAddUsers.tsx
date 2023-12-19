@@ -1,7 +1,6 @@
 'use client'
 
 import { useCallback, useEffect, useState } from "react";
-import Container from "@/app/components/Container";
 import qs from 'query-string';
 import { useRouter, useSearchParams } from "next/navigation";
 import {

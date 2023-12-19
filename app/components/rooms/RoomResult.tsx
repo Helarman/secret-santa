@@ -4,13 +4,15 @@
 import { SafeUser } from "@/app/types";
 
 import Avatar from "../Avatar";
-import { FaAnglesRight } from "react-icons/fa6";
+import { FaAnglesDown, FaAnglesRight } from "react-icons/fa6";
 
 interface RoomResultProps {
   id: string;
   user: SafeUser;
   description: string;
   title: string;
+  currentUser: SafeUser;
+  recipient:  SafeUser | undefined
 }
 
 
@@ -18,8 +20,9 @@ const RoomResult: React.FC<RoomResultProps> = ({
   id,
   user,
   title,
+  currentUser,
+  recipient
 }) => {
-
   return (
     <div
       className="
@@ -66,81 +69,38 @@ const RoomResult: React.FC<RoomResultProps> = ({
 
       <div
         className="
-    text-gray-700
-    dark:text-white
-    text-xl 
-    font-semibold 
-    font-light
-  "
+          text-gray-700
+          dark:text-white
+          text-xl 
+          font-semibold 
+          font-light
+        "
       >
         {title}
       </div>
       <hr />
 
-
-      <div className="grid grid-cols-3 items-center h-full">
-        <div
-          className="
-          text-gray-700
-          dark:text-white
-          text-2xl 
-          font-semibold 
-          font-light
-          mr-20
-          h-48
-          text-center
-          grid 
-          justify-center
-          items-center
-        "
-        >
-          <div>
-            <Avatar src={user?.image} size={96} />
-            <h1 className="mt-5">You</h1>
-          </div>
+      <div className="flex flex-col lg:flex-row text-center items-center h-full text-gray-700
+            dark:text-white
+            text-xl 
+            font-semibold 
+            font-light">
+        <div className="flex flex-col text-center items-center md:w-4/12 w-full">
+          <Avatar src={currentUser?.image} size={96} />
+          <h1 className="mt-5">You</h1>
         </div>
-        <div
-          className="
-          text-gray-700
-          dark:text-white
-          text-2xl 
-          font-semibold 
-          font-light
-          h-48
-          text-center
-          grid 
-          justify-center
-          items-center
-        "
-        >
-          <div>
 
-            <FaAnglesRight className="w-28 h-28" />
-            <h1 className="mt-5">Gift to</h1>
-          </div>
+        <div className="flex flex-col text-center items-center md:w-4/12 w-full">
+          <FaAnglesRight className="w-24 h-24 rotate-90 lg:rotate-0" />
+          <h1 className="mt-5">give a gift to</h1>
         </div>
-        <div
-          className="
-          text-gray-700
-          dark:text-white
-          text-2xl 
-          font-semibold 
-          font-light
-          ml-20
-          h-48
-          flex
-          text-center
-          grid 
-          justify-center
-          items-center
-        "
-        >
-          <div>
-            <Avatar src={user?.image} size={96} />
-            <h1 className="mt-5">Name <br />Lastname</h1>
-          </div>
+
+        <div className="flex flex-col text-cente items-center md:w-4/12 w-full">
+          <Avatar src={recipient?.image} size={96} />
+          <h1 className="mt-5">{recipient?.name}</h1>
         </div>
       </div>
+
     </div>
   );
 }

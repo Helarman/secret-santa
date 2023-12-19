@@ -141,7 +141,7 @@ const Notification: React.FC<NotificationProps> = ({
                 </div>
                 <div className={`${border}   ${min ? 'dark:bg-[#181F39] bg-gray-100' : 'dark:bg-[#1E2746] bg-white'} border-r-4 w-full p-4 flex flex-row`}>
                     <div className="w-full">
-                        <p className="text-gray-600 dark:text-white font-bold">{notificationId}.{title}</p>
+                        <p className="text-gray-600 dark:text-white font-bold">{title}</p>
                         <p className="text-gray-600 dark:text-white text-sm">{date}</p>
                     </div>
                     <div className={`${invite ? '' : 'hidden'} ${min ? 'hidden' : ''} w-2/12 flex flex-row gap-2`}  >

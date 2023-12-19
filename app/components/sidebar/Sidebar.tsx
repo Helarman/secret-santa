@@ -18,9 +18,11 @@ const logoFont = Mountains_of_Christmas({
 });
 
 const NavLinks = [
-    { label: 'Invites', link: '/rooms/invites', icon: FaPlus },
-    { label: 'Your rooms', link: '/rooms/your', icon: FaPlus },
-    { label: 'Owned rooms', link: '/rooms/owned', icon: FaPlus },
+    { label: 'Home', link: '/' },
+    { label: 'FAQ', link: '/faq'},   
+    { label: 'Notifications', link: '/notifications'},
+    { label: 'Your rooms', link: '/rooms/your'},
+    { label: 'Owned rooms', link: '/rooms/owned'},   
 ]
 
 const Sidebar = ({
@@ -127,6 +129,7 @@ const Sidebar = ({
                     "
                     >
                         <div
+                             onClick={() => router.push('/')}
                             className="
                             px-10
                             md:flex 
@@ -139,7 +142,7 @@ const Sidebar = ({
                             px-0
                         "
                         >
-                            <button>
+                            <button> 
                                 <span
                                     className={`${logoFont.className}
                                     'dark:text-white
@@ -184,8 +187,8 @@ const Sidebar = ({
                                 </div>
                                 <ul >
 
-                                    {NavLinks && NavLinks.map(({ label, link, icon }) => (
-                                        <MenuItem key={label} label={label} link={link} icon={icon} />
+                                    {NavLinks && NavLinks.map(({ label, link }) => (
+                                        <MenuItem key={label} label={label} link={link} />
                                     ))}
 
                                 </ul>

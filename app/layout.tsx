@@ -66,10 +66,10 @@ export default async function RootLayout({
                 <Navbar currentUser={currentUser} />
                 <div
                   className="
-                  pt-28
+                  lg:pt-28
                   mx-auto 
                   w-full 
-                  
+                  pt-40
                 "
                 >
                   <div

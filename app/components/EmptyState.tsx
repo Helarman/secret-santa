@@ -8,16 +8,12 @@ import Heading from "./Heading";
 interface EmptyStateProps {
   title?: string;
   subtitle?: string;
-  showReset?: boolean;
 }
 
 const EmptyState: React.FC<EmptyStateProps> = ({
-  title = "No exact matches",
-  subtitle = "Try changing or removing some of your filters.",
-  showReset
+  title = "404",
+  subtitle = "Not found",
 }) => {
-  const router = useRouter();
-
   return (
     <div
       className="

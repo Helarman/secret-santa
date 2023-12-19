@@ -15,6 +15,12 @@ import RoomResult from "@/app/components/rooms/RoomResult";
 import RoomAddUsers from "@/app/components/rooms/RoomAddUsers";
 import { finished } from "stream";
 
+interface ResultProps{
+  roomId: string;
+  giverId: string;
+  recipientId: string;
+}
+
 interface RoomClientProps {
   room: SafeRoom & {
     user: SafeUser;
@@ -22,13 +28,15 @@ interface RoomClientProps {
   currentUser?: SafeUser | null;
   users?: SafeUser[]
   members?: SafeUser[]
+  recipient?: SafeUser | undefined
 }
 
 const RoomClient: React.FC<RoomClientProps> = ({
   room,
   users,
   currentUser,
-  members
+  members,
+  recipient
 }) => {
   const loginModal = useLoginModal();
   const router = useRouter();
@@ -50,7 +58,6 @@ const RoomClient: React.FC<RoomClientProps> = ({
   const hideAddUser = () => {
     setAddMember(false)
   }
-  
   
   return (
     <Container>
@@ -83,6 +90,8 @@ const RoomClient: React.FC<RoomClientProps> = ({
               user={room.user}
               description={room.description}
               title={room.title}
+              recipient={recipient}
+              currentUser={currentUser as SafeUser}
             />
             :
             <RoomInfo

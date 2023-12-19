@@ -34,12 +34,9 @@ const Navbar: React.FC<NavbarProps> = ({
             dark:text-white
          "
       >
-         <div className="w-full mx-aut0 items-center flex justify-between lg:flex-nowrap flex-row flex-wrap lg:px-6 px-4">
-            <div className="lg:w-2/12 w-full">
-               <Search />
-            </div>
+         <div className="w-full mx-aut0 items-center flex justify-end lg:flex-nowrap flex-row flex-wrap lg:px-6 px-4">
+            
             <div className="flex lg:w-3/12 w-full lg:justify-end justify-between">
-               
                <UserMenu currentUser={currentUser} />
             </div>
          </div>

@@ -20,7 +20,7 @@ const UserCard: React.FC<UserCardProps> = ({
             <div className="flex">
                 <div className=' text-center'>
                     <div className="flex justify-center h-full items-center">
-                        <img src={image || '/images/placeholder.jpg'} alt="avatar" />
+                        <img src={image || '/images/placeholder.jpg'} alt="avatar" className="h-20"/>
 
                     </div>
                 </div>

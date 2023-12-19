@@ -10,6 +10,14 @@ import Button from "../Button";
 import axios from "axios";
 import { useState } from "react";
 
+interface ResultProps {
+  roomId: string;
+  giverId: string;
+  recipientId: string;
+}
+
+type PicksProps = number;
+
 interface RoomInfoProps {
   id: string;
   user: SafeUser;
@@ -33,52 +41,65 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
   onClick,
 }) => {
 
- 
-
-  const onPlay = () => {
-    alert(title)
-  }
-
-  const onTest = () => {
-    let originalMembers = members;
-    
-    const fmembers =  originalMembers.map(items => items.name)
-
-    let giverMembers = fmembers
-
-    for(var i = giverMembers.length-1;i>=0;i--){
-      toast.error(`before: ${giverMembers}`);
-      giverMembers.splice(Math.floor(Math.random()*giverMembers.length), 1);
-      toast.error(`after: ${giverMembers}`);
-    }
-    
-  }
-
   const onStart = () => {
     if (finished) {
       toast.error('Alredy started');
       return;
     }
 
-    if (members?.length == 0) {
+    if (members && members?.length % 2 != 0) {
+      toast.error('Odd numbers of members ');
+      return;
+    }
+
+    if (!members) {
       toast.error('No members');
       return;
     }
 
-    if (members && members?.length % 2 != 0) {
-      toast.error('Odd numbers members');
-      return;
+    const membersIds = members.map(items => items.id)
+
+    do {
+
+      var picks: any = {};
+
+      var recipients = JSON.parse(JSON.stringify(membersIds));
+      
+      for (var i in membersIds) {
+
+        var giver = membersIds[i];
+        var recipient = null;
+
+        do {
+
+          if (recipients.length === 1 && recipients[0] === giver) {
+            break;
+          }
+
+          var j = Math.floor(Math.random() * recipients.length);
+
+          if (giver !== recipients[j]) {
+            recipient = recipients[j];
+            recipients.splice(j, 1);
+          }
+        } while (recipient === null);
+
+        if (recipient !== null) {
+          picks[giver] = recipient;
+        }
+      }
+
+    } while (picks.length < membersIds.length);
+
+    for (var giver in picks) {
+      axios.post('/api/givings', {
+        roomId: id,
+        giverId: giver,
+        recipientId: picks[giver]
+      })
     }
 
-    onPlay
-
     axios.put(`/api/rooms/${id}`)
-
-    axios.post('/api/givings', {
-      roomId: id,
-      giverId: '65796b6e7bf27a7eb40af075',
-      recipientId: '657cd975a7c21bda9c975915'
-    })
       .then(() => {
         toast((t) => (
           <>
@@ -94,7 +115,7 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
         window.location.reload();
       })
       .catch(() => {
-        toast.error('Unable to update room or gift data');
+        toast.error('Unable to update room data');
       })
 
   }
@@ -232,16 +253,22 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
                 <Avatar src={image} size={64} hover title={name ? name : ''} />
               </div>
             ))}
-
-
-
           </div>
-
         </div>
 
       </div>
 
-      <div className=" flex flex-col justify-end gap-2 p-5">
+      <div  
+        className={`
+          ${isAdmin ? '' : 'hidden'}
+          ${!finished ? '' : 'hidden'}
+          flex 
+          flex-col 
+          justify-end 
+          gap-2 
+          p-5
+        `}
+      >
         <div className="flex flex-row justify-end items-center">
           <span
             className="
@@ -254,9 +281,9 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
           >
             Standard. Even number of members is required.
           </span>
-          <div
-            onClick={() => setPlayOprion(0)}
-            className={`
+            <div
+              onClick={() => setPlayOprion(0)}
+              className={`
               ${playOption === 0 ? 'bg-indigo-500' : ' '} 
               ${playOption === 0 ? 'border-indigo-500' : 'border-gray-300'}
               ${playOption === 0 ? 'text-white' : 'text-gray-300'}
@@ -267,25 +294,33 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
               w-7
               items-center
             `}
-          >
-            <FaCheck />
+            >
+              <FaCheck />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-end items-center">
-          <span
+
+          <div
             className="
+            flex 
+            flex-row 
+            justify-end 
+            items-center`
+          "
+          >
+            <span
+              className="
               text-lg 
               font-light 
               text-neutral-500
               dark:text-white
               pr-3
             "
-          >
-            Odd members. One of the members gives two gifts.
-          </span>
-          <div
-            onClick={() => setPlayOprion(1)}
-            className={`
+            >
+              Odd members. One of the members gives two gifts.
+            </span>
+            <div
+              onClick={() => setPlayOprion(1)}
+              className={`
               ${playOption === 1 ? 'bg-indigo-500' : ' '} 
               ${playOption === 1 ? 'border-indigo-500' : 'border-gray-300'}
               ${playOption === 1 ? 'text-white' : 'text-gray-300'}
@@ -296,25 +331,25 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
               w-7
               items-center
             `}
-          >
-            <FaCheck />
+            >
+              <FaCheck />
+            </div>
           </div>
-        </div>
-        <div className="flex flex-row justify-end items-center">
-          <span
-            className="
+          <div className="flex flex-row justify-end items-center">
+            <span
+              className="
               pr-3
               text-lg 
               font-light 
               text-neutral-500
               dark:text-white
             "
-          >
-            Odd members. One will not receive a gift.
-          </span>
-          <div
-            onClick={() => setPlayOprion(2)}
-            className={`
+            >
+              Odd members. One will not receive a gift.
+            </span>
+            <div
+              onClick={() => setPlayOprion(2)}
+              className={`
               ${playOption === 2 ? 'bg-indigo-500' : ' '} 
               ${playOption === 2 ? 'border-indigo-500' : 'border-gray-300'}
               ${playOption === 2 ? 'text-white' : 'text-gray-300'}
@@ -325,12 +360,11 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
               w-7
               items-center
             `}
-          >
-            <FaCheck />
+            >
+              <FaCheck />
+            </div>
           </div>
         </div>
-      </div>
-
 
       <div
         className={`
@@ -343,10 +377,8 @@ const RoomInfo: React.FC<RoomInfoProps> = ({
           pb-10
         `}
       >
-        {length}
 
-        <div className="w-1/2"><Button onClick={onStart} label={finished ? 'Alredy started' : 'Start'} disabled={finished} type='primary' /></div>
-        <div className="w-1/2"> <Button onClick={onTest} label='test' disabled={finished} type='success' /></div>
+        <Button onClick={onStart} label={finished ? 'Alredy started' : 'Start'} disabled={finished} type='primary' />
       </div>
     </div >
   );
