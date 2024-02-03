@@ -4,18 +4,36 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { FaUserCheck, FaUserMinus, FaUserPlus } from "react-icons/fa";
-import { FaAngleDown, FaComputerMouse, FaGift, FaClock, FaXmark} from "react-icons/fa6";
+import { FaAngleDown, FaComputerMouse, FaGift, FaClock, FaXmark } from "react-icons/fa6";
 import getCurrentUser from "../actions/getCurrentUser";
+
+interface StringKeysProps {
+    invite: string;
+    gift: string;
+    system: string;
+    leave: string;
+    join: string;
+    disabled: string;
+}
+
+interface ElementKeysProps {
+    invite: JSX.Element;
+    gift: JSX.Element;
+    system: JSX.Element;
+    leave: JSX.Element;
+    join: JSX.Element;
+    disabled: JSX.Element;
+}
 
 export interface NotificationProps {
     id: string
     title: string
-    type: 'invite' | 'gift' | 'join' | 'leave' | 'disabled' | 'system'
-    date: string
+    type: string
+    date?: string
     min?: boolean
     userId?: string
     roomId?: string
-    createdAt?: string 
+    createdAt?: string
 }
 
 const Notification: React.FC<NotificationProps> = ({
@@ -27,12 +45,12 @@ const Notification: React.FC<NotificationProps> = ({
     userId,
     roomId
 }) => {
-    
+
     const memberId = userId;
 
     const notificationId = id;
 
-    const icons = {
+    const icons: ElementKeysProps = {
         invite: <FaUserPlus className="h-6 w-6 text-white" />,
         gift: <FaGift className="h-6 w-6 text-white" />,
         system: <FaComputerMouse className="h-6 w-6 text-white" />,
@@ -41,9 +59,9 @@ const Notification: React.FC<NotificationProps> = ({
         disabled: <FaClock className="h-6 w-6 text-white" />,
     };
 
-    const icon = icons[type];
+    const icon = icons[type as keyof ElementKeysProps];
 
-    const colors = {
+    const colors: StringKeysProps = {
         invite: "bg-blue-500",
         gift: "bg-fuchsia-500",
         system: "bg-rose-700",
@@ -52,9 +70,9 @@ const Notification: React.FC<NotificationProps> = ({
         disabled: "bg-gray-500",
     };
 
-    const color = colors[type];
+    const color = colors[type as keyof StringKeysProps];
 
-    const borders = {
+    const borders: StringKeysProps = {
         invite: "border-blue-500",
         gift: "border-fuchsia-500",
         system: "border-rose-700",
@@ -63,7 +81,7 @@ const Notification: React.FC<NotificationProps> = ({
         disabled: "border-gray-500",
     };
 
-    const border = borders[type];
+    const border = borders[type as keyof StringKeysProps];
 
     let disabled = false;
 
