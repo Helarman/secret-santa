@@ -101,15 +101,6 @@ const RentModal = () => {
               required
             />
           </div>
-          <div className="md:mt-0 mt-3">
-            <Input
-              id="title"
-              label="Members"
-              register={register}
-              errors={errors}
-              
-            />
-          </div>
         </div>
         <div className='w-full md:w-4/12 flex flex-col justify-between '>
           <ImageSelect

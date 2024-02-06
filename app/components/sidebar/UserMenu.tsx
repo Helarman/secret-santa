@@ -31,16 +31,9 @@ const UserMenu: React.FC<UserMenuProps> = ({
   const [userIsOpen, setUserIsOpen] = useState(false);
 
   const toggleUserOpen = useCallback(() => {
-    setNotificationsIsOpen(false)
     setUserIsOpen((value) => !value);
   }, []);
 
-  const [notificationsIsOpen, setNotificationsIsOpen] = useState(false);
-
-  const toggleNotificationsOpen = useCallback(() => {
-    setUserIsOpen(false)
-    setNotificationsIsOpen((value) => !value);
-  }, []);
 
   const [toggle, setToggle] = useState(false)
 
@@ -61,43 +54,6 @@ const UserMenu: React.FC<UserMenuProps> = ({
             <button className="p-5 rounded-full bg-gray-100  text-gray-900 dark:bg-[#181F39] dark:text-white" onClick={() => setTheme("light")}>
               <FaSun />
             </button>}
-        </div>
-        <div className="mr-5 flex">
-          <button
-
-            onClick={toggleNotificationsOpen}
-            className="p-5 rounded-full bg-gray-100 text-gray-900 dark:bg-[#181F39] dark:text-white" >
-            <FaBell />
-          </button>
-          <div
-            className={` 
-              ${notificationsIsOpen ? 'block' : 'hidden'} 
-              absolute 
-              top-20 
-              min-h-screen 
-              md:min-h-0 
-              bg-white 
-              dark:bg-[#1E2746] 
-              z-50 
-              float-left 
-              p-3
-              text-left 
-              shadow-lg
-              min-w-48
-            `}
-          >
-            <Notification min title="Determination of Santa Clauses is completed! You give a gift to Name Lastname!" date="2023-12-07 02:00:00" type='gift' id={""} />
-            <Notification min title="You are invited to the room Room Name from Alexander Ivanov!" date="2023-12-07 02:00:00" type='invite' id={""} />
-            <div
-              className="h-0 my-2 border border-solid border-blueGray-100"
-            ></div>
-            <button
-              onClick={() => router.push('/notifications')}
-              className=" font-normal px-3 py-2 hover:opacity-75 w-full text-center"
-            >
-              See all notifications
-            </button>
-          </div>
         </div>
       </div>
       <div className="relative">
